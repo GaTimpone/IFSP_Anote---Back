@@ -41,14 +41,4 @@ public class AnotacaoController {
     public Anotacao update(@PathVariable Long id, @RequestBody AnotacaoDTO anotacaoDTO) {
         return anotacaoService.update(id, anotacaoDTO);
     }
-
-    @PostMapping("/{anotacaoId}/tags/{tagId}")
-    public Anotacao addTag(@PathVariable Long anotacaoId, @PathVariable Long tagId) {
-        return anotacaoService.addTagToAnotacao(anotacaoId, tagId);
-    }
-
-    @DeleteMapping("/{anotacaoId}/tags/{tagId}")
-    public Anotacao removeTag(@PathVariable Long anotacaoId, @PathVariable Long tagId) {
-        return anotacaoService.removeTagFromAnotacao(anotacaoId, tagId);
-    }
 }

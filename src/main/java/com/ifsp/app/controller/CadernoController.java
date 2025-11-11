@@ -41,14 +41,4 @@ public class CadernoController {
     public Caderno update(@PathVariable Long id, @RequestBody CadernoDTO cadernoDTO) {
         return cadernoService.update(id, cadernoDTO);
     }
-
-    @PostMapping("/{cadernoId}/tags/{tagId}")
-    public Caderno addTag(@PathVariable Long cadernoId, @PathVariable Long tagId) {
-        return cadernoService.addTagToCaderno(cadernoId, tagId);
-    }
-
-    @DeleteMapping("/{cadernoId}/tags/{tagId}")
-    public Caderno removeTag(@PathVariable Long cadernoId, @PathVariable Long tagId) {
-        return cadernoService.removeTagFromCaderno(cadernoId, tagId);
-    }
 }
