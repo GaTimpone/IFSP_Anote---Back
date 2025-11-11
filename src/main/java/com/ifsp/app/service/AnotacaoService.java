@@ -3,11 +3,9 @@ package com.ifsp.app.service;
 import com.ifsp.app.controller.dto.AnotacaoDTO;
 import com.ifsp.app.model.Anotacao;
 import com.ifsp.app.model.Caderno;
-import com.ifsp.app.model.Tag;
 import com.ifsp.app.model.Usuario;
 import com.ifsp.app.model.repository.AnotacaoRepository;
 import com.ifsp.app.model.repository.CadernoRepository;
-import com.ifsp.app.model.repository.TagRepository;
 import com.ifsp.app.model.repository.UsuarioRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,16 +19,13 @@ public class AnotacaoService {
     private final AnotacaoRepository anotacaoRepository;
     private final UsuarioRepository usuarioRepository;
     private final CadernoRepository cadernoRepository;
-    private final TagRepository tagRepository;
 
     public AnotacaoService(AnotacaoRepository anotacaoRepository,
                            UsuarioRepository usuarioRepository,
-                           CadernoRepository cadernoRepository,
-                           TagRepository tagRepository) {
+                           CadernoRepository cadernoRepository) {
         this.anotacaoRepository = anotacaoRepository;
         this.usuarioRepository = usuarioRepository;
         this.cadernoRepository = cadernoRepository;
-        this.tagRepository = tagRepository;
     }
 
     public List<Anotacao> findAll() {
@@ -85,31 +80,5 @@ public class AnotacaoService {
             anotacao.setCaderno(null);
         }
         return anotacaoRepository.save(anotacao);
-    }
-
-    public Anotacao addTagToAnotacao(Long anotacaoId, Long tagId) {
-        Anotacao anotacao = findById(anotacaoId);
-        Tag tag = tagRepository.findById(tagId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tag não encontrada"));
-
-        if (!anotacao.getTags().contains(tag)) {
-            anotacao.getTags().add(tag);
-            anotacao = anotacaoRepository.save(anotacao);
-        }
-
-        return anotacao;
-    }
-
-    public Anotacao removeTagFromAnotacao(Long anotacaoId, Long tagId) {
-        Anotacao anotacao = findById(anotacaoId);
-        Tag tag = tagRepository.findById(tagId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tag não encontrada"));
-
-        if (anotacao.getTags().contains(tag)) {
-            anotacao.getTags().remove(tag);
-            anotacao = anotacaoRepository.save(anotacao);
-        }
-
-        return anotacao;
     }
 }
