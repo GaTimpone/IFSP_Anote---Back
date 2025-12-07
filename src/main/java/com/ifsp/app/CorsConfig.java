@@ -14,8 +14,9 @@ public class CorsConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("*")
-						.allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+						.allowedOrigins("http://lb-ifsp-anote-115875767.us-east-1.elb.amazonaws.com") 
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*");
 			}
 		};
 	}
